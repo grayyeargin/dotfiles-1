@@ -76,6 +76,10 @@ if tput setaf 1 &> /dev/null; then
 	violet=$(tput setaf 61);
 	white=$(tput setaf 15);
 	yellow=$(tput setaf 136);
+	bg_cyan=$(tput setab 37);
+	bg_violet=$(tput setab 61);
+	bg_orange=$(tput setab 166);
+	bg_yellow=$(tput setab 136);
 else
 	bold='';
 	reset="\e[0m";
@@ -120,3 +124,17 @@ export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";
 export PS2;
+
+# ---------------------
+# Print Stats on terminal load
+# ---------------------
+welcome() {
+  sed -i.bak s/WELCOME_PROMPT=false/WELCOME_PROMPT=true/g ~/.welcome_prompt.sh
+  echo "Message returned."
+}
+
+# Show/Hide stats on terminal load
+unwelcome() {
+  sed -i.bak s/WELCOME_PROMPT=true/WELCOME_PROMPT=false/g ~/.welcome_prompt.sh
+  echo "Message removed. Type ${BOLD}welcome${RESET} to return the message."
+}
